@@ -1,12 +1,15 @@
 const express = require('express');
 const mysql = require('mysql2');
+const cors = require('cors');
 const app = express();
+
 app.use(express.json());
+app.use(cors());
 
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'password123', // Replace with your MySQL root password
+    password: 'password123',
     database: 'test_db'
 });
 
@@ -28,4 +31,8 @@ app.get('/api/users', (req, res) => {
     });
 });
 
-app.listen(3001, () => console.log('Server running on port 3001'));
+module.exports = app;
+
+if (require.main === module) {
+    app.listen(3001, () => console.log('Server running on port 3001'));
+}
